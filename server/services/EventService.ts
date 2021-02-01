@@ -1,11 +1,14 @@
-import { Event } from "../interfaces/Event";
+import { EventModel } from "./../database/events/events.model";
+import { IEvent } from "../database/events/events.types";
+import { connect } from "../database/database";
 export const listEvents = (timelineId: string) => {};
-export const getEvent = (eventId: string) => {
-  const event: Event = {
-    id: "1",
-    startYear: 2012,
-    title: "TestTitle",
-    description: "Hello",
-  };
+
+interface GetEventParams {
+  id: string;
+}
+export const getEvent = async ({ id }: GetEventParams) => {
+  await connect();
+  console.log(id);
+  const event: IEvent = await EventModel.findById(id);
   return event;
 };
